@@ -6,31 +6,35 @@ import CustomPagination from "./CustomPagination";
 
 const NewsList = (props) => {
   const { category, searchTerm } = props;
+  // destructuring assignment to extract specific properties from the props object.
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 4;
+  const pageSize = 6;
 
   const onPageChange = (pageNumber) => setCurrentPage(pageNumber);
-
-  const { newsData, loading, error } = useNewsData(category, searchTerm);
+  const { newsData, loading, error } = useNewsData(category, searchTerm);   //from NewsList.js
 
   if (loading) {
     return <div>Loading...</div>;
   }
-
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
-  const totalArticles = newsData.length;
+  //const totalArticles = newsData.length;
+  const totalArticles = Array.isArray(newsData) ? newsData.length : 0;
   const totalPages = Math.ceil(totalArticles / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
-  const currentArticles = newsData.slice(startIndex, endIndex);
+  //const currentArticles = newsData.slice(startIndex, endIndex);
+  const currentArticles = Array.isArray(newsData) ? newsData.slice(startIndex, endIndex) : [];
 
   return (
     <Container>
+    {/* horizontal layout. Each child component (in this case, a column containing a card) 
+    will be placed within this row. */}
       <Row>
-        {currentArticles?.map((article) => (
+      {/* map function to iterate over an array called currentArticles */}
+        {currentArticles?.map((article) => ( 
           <Col xs={12} md={6} lg={4} key={article.url}>
             <Card>
               <Card.Img src={article.image} variant="top" />
@@ -44,11 +48,7 @@ const NewsList = (props) => {
         ))}
       </Row>
 
-      <CustomPagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={onPageChange}
-      />
+      <CustomPagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange}/>
     </Container>
   );
 };
