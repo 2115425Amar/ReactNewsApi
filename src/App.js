@@ -81,7 +81,8 @@ function App() {
           </Col>
 
           <Col xs={12} md={9}>
-            <NewsList category={category} searchTerm={searchTerm} />
+            <NewsList category={category} searchTerm={searchTerm} />   
+            {/* category and serchTerm from the use State hook */}
           </Col>
         </Row>
       </Container>

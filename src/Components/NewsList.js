@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 
-import useNewsData from "../hooks/useNewsData";
+import useNewsData from "../hooks/useNewsData";  //for the api data from useState hooks
 import CustomPagination from "./CustomPagination";
 
-const NewsList = (props) => {
+const NewsList = (props) => {    
   const { category, searchTerm } = props;
   // destructuring assignment to extract specific properties from the props object.
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 6;
+  const pageSize = 6;  //no of div boxes on one page
 
   const onPageChange = (pageNumber) => setCurrentPage(pageNumber);
   const { newsData, loading, error } = useNewsData(category, searchTerm);   //from NewsList.js
@@ -19,10 +19,14 @@ const NewsList = (props) => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+  
+  // for the pagination------------->
 
   //const totalArticles = newsData.length;
   const totalArticles = Array.isArray(newsData) ? newsData.length : 0;
-  const totalPages = Math.ceil(totalArticles / pageSize);
+  const totalPages = Math.ceil(totalArticles / pageSize);    //total page recquirement
+  // let total article =100 no of news per page=4 
+  // total page recquirement =100/4=5
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   //const currentArticles = newsData.slice(startIndex, endIndex);

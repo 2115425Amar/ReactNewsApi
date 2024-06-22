@@ -22,7 +22,7 @@ const useNewsData = (category, searchTerm) => {
         const response = await fetch(url);
         const data = await response.json();
 
-        setNewsData(data.articles);
+        setNewsData(data.articles);   //articles is the array
         setLoading(false);
       }
        catch (error) {
@@ -30,8 +30,7 @@ const useNewsData = (category, searchTerm) => {
         setLoading(false);
       }
     }
-
-    fetchNewsData();   //call the function
+    fetchNewsData();            //call the function
   }, [category, searchTerm]);   //dependency array
 
   return { newsData, loading, error };

@@ -28,11 +28,13 @@ function CustomPagination(props) {
   return (
     <div className="d-flex justify-content-center">
       <Pagination>
+      {/*1-> previous button */}
         <Pagination.Prev
           disabled={currentPage === 1}
           onClick={() => handlePageClick(currentPage - 1)}
         />
         {renderPageItems()}
+        {/*2-> next button */}
         <Pagination.Next
           disabled={currentPage === totalPages}
           onClick={() => handlePageClick(currentPage + 1)}
